@@ -21,6 +21,16 @@ app.get('/', function(req, res){
   res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
+
+
+app.get('/api/urls', function(req, res) {
+  Url.find({}, function(err, docs) {
+    if(!err) res.json(200, docs);                                 // if no err , send it as JSON
+    else res.send(500);
+  });
+});
+
+
 app.post('/api/shorten', function(req, res){
   var longUrl = req.body.url;
   var shortUrl = '';
@@ -71,9 +81,6 @@ app.get('/:encoded_id', function(req, res){
 
 });
 
-// var server = app.listen(3000, function(){
-//   console.log('Server listening on port 3000');
-// });
 app.listen(process.env.PORT || 3000, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
