@@ -9,7 +9,8 @@ var base58 = require('./base58.js');
 // grab the url model
 var Url = require('./models/url');
 
-mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
+// mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
+mongoose.connect('mongodb://alex:sonu1nearbuy@ds147551.mlab.com:47551/url-shortn');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
