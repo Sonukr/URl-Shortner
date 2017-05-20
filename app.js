@@ -25,20 +25,26 @@ app.get('/', function(req, res){
 
 app.get('/api/urls', function(req, res) {
   Url.find({}, function(err, docs) {
-    if(!err) res.json(200, docs);                                 // if no err , send it as JSON
+    console.log(req.headers.host);
+    if(!err){
+      res.json(200, docs);                                 // if no err , send it as JSON
+
+    }
     else res.send(500);
+
   });
 });
 
 
 app.post('/api/shorten', function(req, res){
+  var hostname = req.headers.host + '/';
   var longUrl = req.body.url;
   var shortUrl = '';
 
   // check if url already exists in database
   Url.findOne({long_url: longUrl}, function (err, doc){
     if (doc){
-      shortUrl = config.webhost + base58.encode(doc._id);
+      shortUrl = hostname + base58.encode(doc._id);
 
       // the document exists, so we return it without creating a new entry
       res.send({'shortUrl': shortUrl});
@@ -54,7 +60,7 @@ app.post('/api/shorten', function(req, res){
           console.log(err);
         }
 
-        shortUrl = config.webhost + base58.encode(newUrl._id);
+        shortUrl = hostname + base58.encode(newUrl._id);
 
         res.send({'shortUrl': shortUrl});
       });
@@ -65,7 +71,7 @@ app.post('/api/shorten', function(req, res){
 });
 
 app.get('/:encoded_id', function(req, res){
-
+  var hostname = req.headers.host + '/';
   var base58Id = req.params.encoded_id;
 
   var id = base58.decode(base58Id);
@@ -75,7 +81,7 @@ app.get('/:encoded_id', function(req, res){
     if (doc) {
       res.redirect(doc.long_url);
     } else {
-      res.redirect(config.webhost);
+      res.redirect(hostname);
     }
   });
 
