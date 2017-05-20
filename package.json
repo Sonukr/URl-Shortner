@@ -1,0 +1,17 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "url shortner using node and mongo",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "mongoose": "^4.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Sonu kumar",
+  "license": "ISC"
+}
