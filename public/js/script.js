@@ -1,6 +1,6 @@
 $('.btn-shorten').on('click', function(){
   var input = $('#url-field').val();
-  if(input != "" && ValidURL(input)){
+  if(input != ""){
     $.ajax({
       url: '/api/shorten',
       type: 'POST',
@@ -29,7 +29,7 @@ function ValidURL(str) {
   var pattern = new RegExp('^(?:(ftp|http|https):\/\/)?'+ // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\d])*)\\.)+[a-z]{2,}|'+ // domain name
     '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-    '(\\:\d+)?(\\//[-a-z\\d%_.~+]*)*'); // port and pat
+    '(\\:\d+)?(\\//[-a-z\\d%_.~+]*)*'); // port and path
   if(!pattern.test(str)) {
     alert("Please enter a valid URL.");
     return false;
